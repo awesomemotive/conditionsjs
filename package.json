@@ -1,0 +1,33 @@
+{
+  "name": "conditionsjs",
+  "version": "3.2.1",
+  "title": "conditions.js",
+  "description": "A small jQuery plugin for handling showing and hiding things conditionally based on input",
+  "homepage": "https://github.com/benjaminprojas/conditionsjs",
+  "author": "Benjamin Rojas (http://github.com/benjaminprojas/)",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/craftpip/jquery-confirm/blob/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/channeleaton/conditionjs.git"
+  },
+  "main": "dist/conditions.min.js",
+  "dependencies": {
+    "jquery": ">=1.6"
+  },
+  "bugs": {
+    "url": "https://github.com/channeleaton/conditionsjs/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "jquery"
+  ],
+  "license": "MIT"
+}
