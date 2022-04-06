@@ -1,25 +1,53 @@
 /**
- * jQuery Conditions 1.0.0
+ * jQuery Conditions 3.3.0
  *
  * Copyright 2016 Bejamin Rojas
  * @license Released under the MIT license.
  * http://jquery.org/license
  */
-(function($) {
+(function(root, factory) {
+
+	// AMD
+	if (typeof define === "function" && define.amd) {
+		define(["exports", "jquery"], function(exports, $) {
+			return factory(exports, $);
+		});
+	}
+
+	// CommonJS
+	else if (typeof exports !== "undefined") {
+		var $ = require("jquery");
+		factory(exports, $);
+	}
+
+	// Browser
+	else {
+		factory(root, (root.jQuery || root.$));
+	}
+
+}(this, function(exports, $) {
 	"use strict";
 
-	$.fn.conditions = function(conditions) {
+	var conditionsjs = {
+		defaults: {
+			condition:	null,
+			actions:	{},
+			effect:		'fade'
+		}
+	};
+
+	conditionsjs.callback = function(conditions) {
 		return this.each( function(index, element) {
-			var CJS = new ConditionsJS(element, conditions, $.fn.conditions.defaults);
+			var CJS = new ConditionsJS(element, conditions, conditionsjs.defaults);
 			CJS.init();
 		});
 	};
 
-	$.fn.conditions.defaults = {
-		condition:	null,
-		actions:	{},
-		effect:		'fade'
-	};
+	if (typeof $.fn !== "undefined") {
+	  $.fn.conditions = conditionsjs.callback;
+	}
+
+	exports.conditionsjs = conditionsjs;
 
 	var ConditionsJS = function(element, conditions, defaults) {
 		var that = this;
@@ -54,7 +82,7 @@
 		$(that.element).on('keyup', function() {
 			that.matchConditions();
 		});
-		
+
 		//Show based on current value on page load
 		that.matchConditions(true);
 	};
@@ -138,7 +166,7 @@
 					if(!$.isArray(cond.actions.else)) {
 						cond.actions.else = [cond.actions.else];
 					}
-					
+
 					$.each(cond.actions.else, function(i, condition) {
 						that.showAndHide(condition, cond.effect);
 					});
@@ -189,7 +217,7 @@
 
 	ConditionsJS.prototype._hide = function(element, effect) {
 		var that = this;
-		
+
 		if(that._init) {
 			element.hide();
 		}
@@ -209,4 +237,4 @@
 
 	};
 
-}(jQuery));
+}));
