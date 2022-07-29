@@ -30,9 +30,9 @@
 
 	var conditionsjs = {
 		defaults: {
-			condition:	null,
-			actions:	{},
-			effect:		'fade'
+			condition : null,
+			actions   : {},
+			effect    : 'fade'
 		}
 	};
 
@@ -52,21 +52,17 @@
 	var ConditionsJS = function(element, conditions, defaults) {
 		var that = this;
 
-		that.element	= $(element);
-		that.defaults	= defaults;
-		that.conditions	= conditions;
-		that._init		= false;
+		that.element    = $(element);
+		that.defaults   = defaults;
+		that.conditions = conditions;
+		that._init      = false;
 
 		if(!$.isArray(that.conditions)) {
 			that.conditions = [that.conditions];
 		}
 
 		$.each(that.conditions, function(i, v) {
-
-			v = $.extend({}, that.defaults, v);
-
-			that.conditions[i] = v;
-
+			that.conditions[i] = $.extend({}, that.defaults, v);
 		});
 
 	};
@@ -104,6 +100,14 @@
 
 			$.each(cond.conditions, function(i, c) {
 
+				c = $.extend({
+					element   : null,
+					type      : 'val',
+					operator  : '==',
+					condition : null,
+					multiple  : 'single'
+				}, c);
+
 				c.element = $(c.element);
 
 				switch(c.type) {
@@ -113,17 +117,73 @@
 							case '===':
 							case '==':
 							case '=':
-								condition_matches = c.element.val() === c.condition;
+								if ( $.isArray( c.element.val() ) ) {
+									var m_single_condition_matches = false;
+									var m_all_condition_matches    = true;
+									$.each( c.element.val(), function( index, value ) {
+										if ( value === c.condition ) {
+											m_single_condition_matches = true;
+										} else {
+											m_all_condition_matches = false;
+										}
+									} );
+									condition_matches = 'single' == c.multiple ? m_single_condition_matches : m_all_condition_matches;
+								} else {
+									condition_matches = c.element.val() === c.condition;
+								}
 								break;
 							case '!==':
 							case '!=':
-								condition_matches = c.element.val() !== c.condition;
+								if ( $.isArray( c.element.val() ) ) {
+									var m_single_condition_matches = false;
+									var m_all_condition_matches    = true;
+									$.each( c.element.val(), function( index, value ) {
+										if ( value !== c.condition ) {
+											m_single_condition_matches = true;
+										} else {
+											m_all_condition_matches = false;
+										}
+									} );
+									condition_matches = 'single' == c.multiple ? m_single_condition_matches : m_all_condition_matches;
+								} else {
+									condition_matches = c.element.val() !== c.condition;
+								}
 								break;
 							case 'array':
-								condition_matches = $.inArray( c.element.val(), c.condition ) !== -1;
+								if ( $.isArray( c.element.val() ) ) {
+									var m_single_condition_matches = false;
+									var m_all_condition_matches    = c.element.val().length === c.condition.length;
+									$.each( c.element.val(), function( index, value ) {
+										if ( $.inArray( value, c.condition ) !== -1 ) {
+											m_single_condition_matches = true;
+										} else {
+											m_all_condition_matches = false;
+										}
+									} );
+									condition_matches = 'single' == c.multiple ? m_single_condition_matches : m_all_condition_matches;
+								} else {
+									condition_matches = $.inArray( c.element.val(), c.condition ) !== -1;
+								}
 								break;
 							case '!array':
-								condition_matches = $.inArray( c.element.val(), c.condition ) === -1;
+								if ( $.isArray( c.element.val() ) ) {
+									var m_single_condition_matches = false;
+									var m_all_condition_matches    = true;
+									var selected                   = [];
+									$.each( c.element.val(), function( index, value ) {
+										if ( $.inArray( value, c.condition ) === -1 ) {
+											m_single_condition_matches = true;
+										} else {
+											selected.push(value);
+										}
+									} );
+									if ( selected.length == c.condition.length ) {
+										m_all_condition_matches = false;
+									}
+									condition_matches = 'single' == c.multiple ? m_single_condition_matches : m_all_condition_matches;
+								} else {
+									condition_matches = $.inArray( c.element.val(), c.condition ) === -1;
+								}
 								break;
 						}
 						break;
@@ -136,6 +196,7 @@
 								condition_matches = !c.element.is(':checked');
 								break;
 						}
+						break;
 				}
 
 				if(!condition_matches && all_conditions_match) {
