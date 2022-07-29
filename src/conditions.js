@@ -1,5 +1,5 @@
 /**
- * jQuery Conditions 3.3.0
+ * jQuery Conditions 3.4.0
  *
  * Copyright 2016 Bejamin Rojas
  * @license Released under the MIT license.

@@ -1,6 +1,6 @@
 {
   "name": "conditionsjs",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "title": "conditions.js",
   "description": "A small jQuery plugin for handling showing and hiding things conditionally based on input",
   "homepage": "https://github.com/benjaminprojas/conditionsjs",
