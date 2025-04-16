@@ -57,7 +57,7 @@
 		that.conditions = conditions;
 		that._init      = false;
 
-		if(!$.isArray(that.conditions)) {
+		if(!Array.isArray(that.conditions)) {
 			that.conditions = [that.conditions];
 		}
 
@@ -94,7 +94,7 @@
 
 			var condition_matches = false, all_conditions_match = true;
 
-			if(!$.isArray(cond.conditions)) {
+			if(!Array.isArray(cond.conditions)) {
 				cond.conditions = [cond.conditions];
 			}
 
@@ -117,7 +117,7 @@
 							case '===':
 							case '==':
 							case '=':
-								if ( $.isArray( c.element.val() ) ) {
+								if ( Array.isArray( c.element.val() ) ) {
 									var m_single_condition_matches = false;
 									var m_all_condition_matches    = true;
 									$.each( c.element.val(), function( index, value ) {
@@ -134,7 +134,7 @@
 								break;
 							case '!==':
 							case '!=':
-								if ( $.isArray( c.element.val() ) ) {
+								if ( Array.isArray( c.element.val() ) ) {
 									var m_single_condition_matches = false;
 									var m_all_condition_matches    = true;
 									$.each( c.element.val(), function( index, value ) {
@@ -150,7 +150,7 @@
 								}
 								break;
 							case 'array':
-								if ( $.isArray( c.element.val() ) ) {
+								if ( Array.isArray( c.element.val() ) ) {
 									var m_single_condition_matches = false;
 									var m_all_condition_matches    = c.element.val().length === c.condition.length;
 									$.each( c.element.val(), function( index, value ) {
@@ -166,7 +166,7 @@
 								}
 								break;
 							case '!array':
-								if ( $.isArray( c.element.val() ) ) {
+								if ( Array.isArray( c.element.val() ) ) {
 									var m_single_condition_matches = false;
 									var m_all_condition_matches    = true;
 									var selected                   = [];
@@ -209,7 +209,7 @@
 
 				if(!$.isEmptyObject(cond.actions.if)) {
 
-					if(!$.isArray(cond.actions.if)) {
+					if(!Array.isArray(cond.actions.if)) {
 						cond.actions.if = [cond.actions.if];
 					}
 
@@ -224,7 +224,7 @@
 
 				if(!$.isEmptyObject(cond.actions.else)) {
 
-					if(!$.isArray(cond.actions.else)) {
+					if(!Array.isArray(cond.actions.else)) {
 						cond.actions.else = [cond.actions.else];
 					}
 
