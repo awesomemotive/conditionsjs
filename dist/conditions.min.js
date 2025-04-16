@@ -1,5 +1,7 @@
 /**
- * jQuery Conditions 3.4.0
+ * Conditions JS 1.1.0.
+ *
+ * This is a forked version of the jQuery Conditions plugin. Our (AwesomeMotive) version is 1.1.0, it is forked from jQuery Conditions 3.4.0.
  *
  * Copyright 2016 Bejamin Rojas
  * @license Released under the MIT license.
