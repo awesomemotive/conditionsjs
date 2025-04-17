@@ -12,13 +12,7 @@
 /* globals jQuery, define, exports, require */
 
 /**
- * @param $.each
- * @param $.extend
- * @param $.fn
- * @param $.on
  * @param define.amd
- * @param root.$
- * @param root.jQuery
  */
 
 ( function( root, factory ) {
